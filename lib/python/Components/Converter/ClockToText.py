@@ -14,11 +14,14 @@ class ClockToText(Converter, object):
 	SHORT_DATE = 8
 	LONG_DATE = 9
 	VFD = 10
-	AS_LENGTHHOURS = 11
-	AS_LENGTHSECONDS = 12
-	FULL_DATE = 13
-
-	# add: date, date as string, weekday, ...
+	ANALOG_SEC = 11
+	ANALOG_MIN = 12
+	ANALOG_HOUR = 13
+	AS_LENGTHHOURS = 14
+	AS_LENGTHSECONDS = 15
+	FULL_DATE = 16
+	
+	# add: date, date as string, weekday, ... 
 	# (whatever you need!)
 
 	def __init__(self, type):
@@ -50,6 +53,12 @@ class ClockToText(Converter, object):
 		elif "Format" in type:
 			self.type = self.FORMAT
 			self.fmt_string = type[7:]
+		elif type == "AnalogSeconds":
+			self.type = self.ANALOG_SEC
+		elif type == "AnalogMinutes":
+			self.type = self.ANALOG_MIN
+		elif type == "AnalogHours":
+			self.type = self.ANALOG_HOUR
 		else:
 			self.type = self.DEFAULT
 
@@ -106,6 +115,20 @@ class ClockToText(Converter, object):
 			d = _("%k:%M %e/%m")
 		elif self.type == self.FORMAT:
 			d = self.fmt_string
+			spos = self.fmt_string.find('%')
+			if spos > 0:
+				s1 = self.fmt_string[:spos]
+				s2 = strftime(self.fmt_string[spos:], t)
+				return str(s1+s2)
+			else:
+				return strftime(self.fmt_string, t)
+		elif self.type == self.ANALOG_SEC:
+			return "%02d" % t.tm_sec
+		elif self.type == self.ANALOG_MIN:
+			return "%02d" % t.tm_min
+		elif self.type == self.ANALOG_HOUR:
+			ret = (t.tm_hour*5)+(t.tm_min/12);
+			return "%02d" % ret
 		else:
 			return "???"
 		return strftime(d, t)
