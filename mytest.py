@@ -210,19 +210,21 @@ class Session:
 				traceback.print_exc()
 
 		# sifteam init
-    		from SIFTeam.Extra.FifoListener import fifolistener
-    		fifolistener.setSession(self)
-    		fifolistener.start()
-    
-    		from SIFTeam.Extra.Emud import emud
-    		emud.setSession(self)
-    		emud.connect()
-    		emud.startDefaults()
-    
-    		from SIFTeam.Addons import startAutomatiUpdates
-   		startAutomatiUpdates(self)		
-
-
+		from SIFTeam.Extra.FifoListener import fifolistener
+		fifolistener.setSession(self)
+		fifolistener.start()
+		
+		from SIFTeam.Extra.Emud import emud
+		emud.setSession(self)
+		emud.connect()
+		emud.startDefaults()
+		
+		from SIFTeam.Addons import startAutomatiUpdates
+		startAutomatiUpdates(self)
+		
+		from SIFTeam.Crashlogs import startSendCrashlog
+		startSendCrashlog(self)
+		
 	def processDelay(self):
 		callback = self.current_dialog.callback
 
