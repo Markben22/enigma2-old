@@ -57,7 +57,7 @@ AC_DEFINE_UNQUOTED(BOXTYPE,"$BOXTYPE",[box type])
 
 AC_ARG_WITH(distro,
 	[  --with-distro=NAME distro name [[openvix,openaaf,...]]],
-	[DISTRO="$withval"],[DISTRO="openvix"])
+	[DISTRO="$withval"],[DISTRO="opensif"])
 AC_SUBST(DISTRO)
 AC_DEFINE_UNQUOTED(DISTRO,"$DISTRO",[distro name])
 
@@ -412,6 +412,9 @@ lib/python/Plugins/SystemPlugins/Videomode/meta/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/Makefile
 lib/python/Plugins/SystemPlugins/WirelessLan/meta/Makefile
 lib/python/Tools/Makefile
+lib/python/SIFTeam/Makefile
+lib/python/SIFTeam/Daemons/Makefile
+lib/python/SIFTeam/Extra/Makefile
 po/Makefile
 main/Makefile
 tools/Makefile
