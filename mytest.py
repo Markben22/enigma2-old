@@ -209,6 +209,20 @@ class Session:
 				import traceback
 				traceback.print_exc()
 
+		# sifteam init
+    		from SIFTeam.Extra.FifoListener import fifolistener
+    		fifolistener.setSession(self)
+    		fifolistener.start()
+    
+    		from SIFTeam.Extra.Emud import emud
+    		emud.setSession(self)
+    		emud.connect()
+    		emud.startDefaults()
+    
+    		from SIFTeam.Addons import startAutomatiUpdates
+   		startAutomatiUpdates(self)		
+
+
 	def processDelay(self):
 		callback = self.current_dialog.callback
 
@@ -680,6 +694,9 @@ Screens.Ci.InitCiConfig()
 profile("RcModel")
 import Components.RcModel
 
+import SIFTeam.Extra.Preferences
+SIFTeam.Extra.Preferences.InitPreferences()
+
 #from enigma import dump_malloc_stats
 #t = eTimer()
 #t.callback.append(dump_malloc_stats)
@@ -690,6 +707,13 @@ try:
 	runScreenTest()
 
 	plugins.shutdown()
+	
+	# sifteam
+	from SIFTeam.Extra.FifoListener import fifolistener
+	fifolistener.stop()
+
+	from SIFTeam.Extra.Emud import emud
+	emud.disconnect()
 
 	Components.ParentalControl.parentalControl.save()
 except:
