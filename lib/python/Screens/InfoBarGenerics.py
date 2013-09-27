@@ -59,6 +59,8 @@ from Screens.Menu import MainMenu, Menu, mdom
 from Screens.Setup import Setup
 import Screens.Standby
 
+from SIFTeam.Panel import Panel
+
 def isStandardInfoBar(self):
 	return self.__class__.__name__ == "InfoBar"
 
@@ -2795,6 +2797,7 @@ class InfoBarSubserviceSelection:
 		self["SubserviceSelectionAction"] = HelpableActionMap(self, "InfobarSubserviceSelectionActions",
 			{
 				"GreenPressed": (self.GreenPressed),
+				"sifpanel": (self.sifpanel, _("Enter extras menu...")),
 			})
 
 		self["SubserviceQuickzapAction"] = HelpableActionMap(self, "InfobarSubserviceQuickzapActions",
@@ -2817,6 +2820,8 @@ class InfoBarSubserviceSelection:
 			self.openTimerList()
 		else:
 			self.subserviceSelection()
+	def sifpanel(self):
+		self.session.open(Panel)
 
 	def __removeNotifications(self):
 		self.session.nav.event.remove(self.checkSubservicesAvail)

@@ -239,6 +239,7 @@
 
 	<map context="InfobarSubserviceSelectionActions">
 		<key id="KEY_GREEN" mapto="GreenPressed" flags="b" />
+		<key id="KEY_BLUE" mapto="sifpanel" flags="b" />
 	</map>
 
 	<map context="InfobarRedButtonActions">
