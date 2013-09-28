@@ -291,7 +291,7 @@ void bsodFatal(const char *component)
 	os.str("");
 	os.clear();
 	os << "We are really sorry. Your receiver encountered "
-		"a software problem, and needs to be restarted.\n"
+		"a software problem, and needs to be restarted. But If you got this version of Madoka .... stick up the next lines in your ass \n"
 		"Please send the logfile " << crashlog_name << " to " << crash_emailaddr << ".\n"
 		"Your receiver restarts in 10 seconds!\n"
 		"Component: " << crash_component;
