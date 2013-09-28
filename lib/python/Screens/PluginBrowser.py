@@ -23,6 +23,9 @@ from Tools.LoadPixmap import LoadPixmap
 from urllib import urlopen
 import socket
 
+from SIFTeam.Addons import Addons
+
+from time import time
 import os
 
 language.addCallback(plugins.reloadPlugins)
@@ -52,7 +55,7 @@ class PluginBrowser(Screen):
 		Screen.__init__(self, session)
 		Screen.setTitle(self, _("Plugin Browser"))
 
-		self.firsttime = True
+		#self.firsttime = True
 
 		self["key_red"] = Button(_("Remove plugins"))
 		self["key_green"] = Button(_("Download plugins"))
@@ -125,11 +128,16 @@ class PluginBrowser(Screen):
 		self["list"].l.setList(self.list)
 
 	def delete(self):
-		self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.REMOVE)
+		addons = Addons(self.session)
+		addons.goToShortcut("plugins_remove", self.PluginDownloadBrowserClosed)
+		#sddelf.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.REMOVE)
+		
 
 	def download(self):
-		self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.DOWNLOAD, self.firsttime)
-		self.firsttime = False
+		addons = Addons(self.session)
+		addons.goToShortcut("plugins_install", self.PluginDownloadBrowserClosed)
+		#self.session.openWithCallback(self.PluginDownloadBrowserClosed, PluginDownloadBrowser, PluginDownloadBrowser.DOWNLOAD, self.firsttime)
+		#self.firsttime = False
 
 	def PluginDownloadBrowserClosed(self):
 		self.updateList()
